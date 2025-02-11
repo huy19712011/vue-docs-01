@@ -1,10 +1,15 @@
 <script setup>
 import { reactive, ref } from "vue";
 
+const text = ref("");
+
+/*
+// 3. Event Listeners
 const count = ref(0);
 const increment = () => {
   count.value++;
 };
+*/
 
 /*
 // 2. Attribute Binding
@@ -24,8 +29,15 @@ message.value = "Changed!";
 </script>
 
 <template>
-  <button @click="increment">Count: {{ count }}</button>
+  <input
+    v-model="text"
+    placeholder="Type here"
+  />
+  <p>{{ text }}</p>
 
+  <!-- 3  
+  <button @click="increment">Count: {{ count }}</button>
+ -->
   <!-- 2  
   <h1 :class="titleClass">Make me red</h1>
  -->
