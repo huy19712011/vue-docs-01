@@ -1,7 +1,15 @@
 <script setup>
 import { reactive, ref } from "vue";
 
+const awesome = ref(true);
+const toggle = () => {
+  awesome.value = !awesome.value;
+};
+
+/*
+// 4. Form Binding using v-model
 const text = ref("");
+*/
 
 /*
 // 3. Event Listeners
@@ -29,12 +37,17 @@ message.value = "Changed!";
 </script>
 
 <template>
+  <button @click="toggle">Toggle</button>
+  <h1 v-if="awesome">Vue is awesome 😂</h1>
+  <h1 v-else>Oh No 😘</h1>
+
+  <!-- 4  
   <input
     v-model="text"
     placeholder="Type here"
   />
   <p>{{ text }}</p>
-
+ -->
   <!-- 3  
   <button @click="increment">Count: {{ count }}</button>
  -->
