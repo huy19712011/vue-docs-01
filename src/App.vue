@@ -1,10 +1,33 @@
 <script setup>
 import { reactive, ref } from "vue";
 
+let id = 0;
+
+const newTodo = ref("");
+
+const todos = ref([
+  { id: id++, text: "Learn Html" },
+  { id: id++, text: "Learn Javascript" },
+  { id: id++, text: "Learn Vue" },
+]);
+
+const addTodo = () => {
+  // todos.value.push({ id: id++, text: newTodo.value });
+  todos.value = [...todos.value, { id: id++, text: newTodo.value }];
+  newTodo.value = "";
+};
+
+const removeTodo = (todo) => {
+  todos.value = todos.value.filter((t) => t !== todo);
+};
+
+/*
+// 5. Conditional Rendering
 const awesome = ref(true);
 const toggle = () => {
   awesome.value = !awesome.value;
 };
+*/
 
 /*
 // 4. Form Binding using v-model
@@ -37,10 +60,29 @@ message.value = "Changed!";
 </script>
 
 <template>
+  <form @submit.prevent="addTodo">
+    <input
+      v-model="newTodo"
+      required
+      placeholder="new todo"
+    />
+    <button>Add Todo</button>
+  </form>
+  <ul>
+    <li
+      v-for="todo in todos"
+      :key="todo.id"
+    >
+      {{ todo.text }}
+      <button @click="removeTodo(todo)">X</button>
+    </li>
+  </ul>
+
+  <!-- 5
   <button @click="toggle">Toggle</button>
   <h1 v-if="awesome">Vue is awesome 😂</h1>
   <h1 v-else>Oh No 😘</h1>
-
+ -->
   <!-- 4  
   <input
     v-model="text"
