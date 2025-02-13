@@ -1,6 +1,14 @@
 <script setup>
-import { reactive, ref, computed } from "vue";
+import { reactive, ref, computed, onMounted } from "vue";
 
+const pElementRef = ref(null);
+
+onMounted(() => {
+  pElementRef.value.textContent = "Mounted";
+});
+
+/*
+//7. Computed properties
 let id = 0;
 
 const newTodo = ref("");
@@ -25,6 +33,7 @@ const addTodo = () => {
 const removeTodo = (todo) => {
   todos.value = todos.value.filter((t) => t !== todo);
 };
+*/
 
 /*
 //6. List Rendering
@@ -89,6 +98,9 @@ message.value = "Changed!";
 </script>
 
 <template>
+  <p ref="pElementRef">Hello</p>
+
+  <!-- 7
   <form @submit.prevent="addTodo">
     <input
       v-model="newTodo"
@@ -113,6 +125,7 @@ message.value = "Changed!";
   <button @click="hideCompleted = !hideCompleted">
     {{ hideCompleted ? "Show all" : "Hide completed" }}
   </button>
+-->
 
   <!--6
   <form @submit.prevent="addTodo">
