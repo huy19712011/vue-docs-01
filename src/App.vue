@@ -1,11 +1,29 @@
 <script setup>
-import { reactive, ref, computed, onMounted } from "vue";
+import { reactive, ref, computed, onMounted, watch } from "vue";
 
+const todoId = ref(1);
+
+const todoData = ref(null);
+
+async function fetchData() {
+  todoData.value = null;
+  const res = await fetch(
+    "https://jsonplaceholder.typicode.com/todos/${todoId.value}"
+  );
+  todoData.value = await res.json();
+}
+
+fetchData();
+watch(todoId, fetchData);
+
+/*
+// 8. Lifecycle and Template refs
 const pElementRef = ref(null);
 
 onMounted(() => {
   pElementRef.value.textContent = "Mounted";
 });
+*/
 
 /*
 //7. Computed properties
@@ -98,7 +116,19 @@ message.value = "Changed!";
 </script>
 
 <template>
+  <p>Todo id: {{ todoId }}</p>
+  <button
+    @click="todoId++"
+    :disabled="!todoData"
+  >
+    Fetch next todo
+  </button>
+  <p v-if="!todoData">Loading...</p>
+  <pre v-else>{{ todoData }}</pre>
+
+  <!-- 8
   <p ref="pElementRef">Hello</p>
+  -->
 
   <!-- 7
   <form @submit.prevent="addTodo">
